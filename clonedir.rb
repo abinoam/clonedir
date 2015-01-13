@@ -13,9 +13,15 @@ src_dir_path = Pathname.new(src_dir)
 dest_dir_path = Pathname.new(dest_dir)
 
 src_dir_path.find do |src|
+  next unless src.directory?
+
   dest = dest_dir_path + src.relative_path_from(src_dir_path)
 
-  puts "---"
-  p src
-  p dest
+  dest.mkpath
+
+  if dest.directory?
+    puts "Successfully created #{dest}"
+  else
+    puts "Error creating #{dest}!"
+  end
 end
