@@ -7,11 +7,15 @@ unless ARGV[0] && ARGV[1]
   exit
 end
 
-src, dest = ARGV
+src_dir, dest_dir = ARGV
 
-src_path = Pathname.new(src)
-dest_path = Pathname.new(dest)
+src_dir_path = Pathname.new(src_dir)
+dest_dir_path = Pathname.new(dest_dir)
 
-src_path.find do |path|
-	p path
+src_dir_path.find do |src|
+  dest = dest_dir_path + src.relative_path_from(src_dir_path)
+
+  puts "---"
+  p src
+  p dest
 end
